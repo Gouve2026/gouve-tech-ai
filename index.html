@@ -1,162 +1,60 @@
 <!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07172f">
-<title>GOUVE TECH AI — Assistant de réparation</title>
-<link rel="manifest" href="manifest.json">
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07172f"><title>GOUVE TECH AI</title>
 <style>
-:root{--navy:#07172f;--navy2:#0d2344;--blue:#1264e8;--cyan:#20c8ef;--ink:#17243a;--muted:#718096;--bg:#f3f6fb;--line:#e3eaf3;--white:#fff;--green:#159b69;--amber:#d68b12;--red:#d84a4a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{min-height:100vh;display:grid;grid-template-columns:248px 1fr}
-.sidebar{background:linear-gradient(180deg,var(--navy),#0b2143);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:24px}
-.brand{display:flex;align-items:center;gap:11px;padding:4px 8px}.brandmark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#1474ff,#1bd4e9);display:grid;place-items:center;font-size:23px;font-weight:900}.brand strong{display:block;font-size:16px;letter-spacing:.5px}.brand small{color:#9fc2e8;font-size:10px;letter-spacing:1.2px}
-.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#b8c9df;text-align:left;padding:12px 13px;border-radius:11px;font-weight:600}.nav button.active,.nav button:hover{background:#153c70;color:white}.nav .ico{display:inline-block;width:25px}
-.side-note{margin-top:auto;color:#9fb4ce;font-size:12px;padding:12px;border:1px solid #284365;border-radius:12px}
-main{min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:3}.topbar h1{font-size:19px;margin:0}.topbar p{margin:2px 0 0;color:var(--muted);font-size:12px}.user{background:#eaf3ff;color:#1456b8;border-radius:30px;padding:9px 13px;font-size:12px;font-weight:700}
-.content{padding:28px;max-width:1400px;margin:auto}.page{display:none}.page.active{display:block}.welcome{background:linear-gradient(110deg,#0b2b55,#0759ae 70%,#13a8cf);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;gap:15px}.welcome h2{margin:0 0 7px;font-size:23px}.welcome p{margin:0;color:#d9eaff}.welcome .spark{font-size:46px;opacity:.9}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.stat,.panel,.card{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 3px 12px #132b4b08}.stat{padding:18px}.stat span{color:var(--muted);font-size:12px;font-weight:600}.stat strong{display:block;font-size:27px;margin-top:8px}.stat em{font-style:normal;color:var(--blue);font-size:11px}.panel{padding:20px;margin-top:18px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.panel h3{margin:0;font-size:16px}.muted{color:var(--muted)}.btn{border:0;border-radius:10px;background:var(--blue);color:#fff;padding:10px 15px;font-weight:700}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#eaf2ff;color:#1557b5}.btn.ghost{background:#f0f3f8;color:#40516b}.btn.small{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap}
-.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700;color:#4b5d75}.field input,.field select,.field textarea,.search{width:100%;border:1px solid #d8e1ed;border-radius:9px;padding:11px 12px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#4d91ef;box-shadow:0 0 0 3px #2c7be51a}.field textarea{min-height:90px;resize:vertical}.sectiontitle{margin:0 0 16px;font-size:21px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:600px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);font-size:13px}th{color:#718096;font-size:11px;text-transform:uppercase;letter-spacing:.5px}.pill{display:inline-block;border-radius:30px;padding:4px 9px;font-size:11px;font-weight:700;background:#edf3fc;color:#45617f}.pill.done{background:#e5f7ef;color:#128052}.pill.wait{background:#fff4df;color:#a76a00}.pill.progress{background:#e7f1ff;color:#1559b8}.result{border:1px solid #dce8f7;border-radius:12px;padding:15px;margin-top:13px;background:#f8fbff}.result h4{margin:0 0 7px}.result ul{margin:7px 0 0;padding-left:20px}.notice{background:#fff8e9;border:1px solid #f1dfb8;color:#79591b;padding:12px;border-radius:10px;font-size:12px;margin-top:14px}.empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed #ccd8e7;border-radius:12px}
-.mobilemenu{display:none}
-@media(max-width:900px){.shell{grid-template-columns:1fr}.sidebar{padding:12px;position:sticky;top:0;z-index:5;gap:10px}.brand{padding:3px 5px}.brandmark{width:34px;height:34px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 11px;font-size:12px}.side-note{display:none}.topbar{height:62px;padding:0 16px}.content{padding:17px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.welcome{padding:20px}.welcome h2{font-size:19px}.welcome .spark{display:none}}
-@media(max-width:560px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.grid{gap:9px}.stat{padding:13px}.stat strong{font-size:22px}.content{padding:13px}.user{display:none}.topbar h1{font-size:16px}}
-</style>
-</head>
-<body>
-<div class="shell">
-<aside class="sidebar">
-  <div class="brand"><div class="brandmark">G</div><div><strong>GOUVE TECH AI</strong><small>SMARTPHONE REPAIR</small></div></div>
-  <nav class="nav" aria-label="Navigation">
-    <button class="active" data-page="home"><span class="ico">⌂</span> Tableau de bord</button>
-    <button data-page="diagnostic"><span class="ico">✚</span> Diagnostic IA</button>
-    <button data-page="repairs"><span class="ico">🔧</span> Réparations</button>
-    <button data-page="clients"><span class="ico">♙</span> Clients</button>
-    <button data-page="quote"><span class="ico">▤</span> Devis rapide</button>
-    <button data-page="about"><span class="ico">ⓘ</span> À propos</button>
-  </nav>
-  <div class="side-note">Version prototype 0.1<br>Vos données restent sur cet appareil.</div>
-</aside>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#17243a;font:15px system-ui,Arial}header{background:linear-gradient(110deg,#07172f,#0759ae);color:white;padding:20px;display:flex;justify-content:space-between}main{max-width:950px;margin:22px auto;padding:0 14px}.card{background:white;border:1px solid #e1e8f1;border-radius:15px;padding:18px;margin-bottom:15px}.hidden{display:none!important}h2{font-size:21px}.muted{color:#718096;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px}.full{grid-column:1/-1}label{font-size:12px;font-weight:700}input,select,textarea{padding:11px;border:1px solid #d8e1ed;border-radius:9px;width:100%;font:inherit}textarea{min-height:65px}.btn{border:0;border-radius:9px;padding:11px 15px;background:#1264e8;color:white;font-weight:700}.alt{background:#eaf2ff;color:#1557b5}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.tabs button{padding:9px 12px;border:1px solid #e1e8f1;background:white;border-radius:9px}.tabs button.active{background:#eaf2ff;color:#1557b5}.msg{padding:11px;border-radius:9px;background:#edf5ff;margin-top:12px;font-size:13px}.err{background:#fff0f0;color:#a92d3b}.ok{background:#e9f8f0;color:#146b48}.stats{display:flex;gap:10px}.stat{background:#f7faff;border:1px solid #e1e8f1;padding:12px;border-radius:10px;flex:1}.stat b{display:block;font-size:23px}table{border-collapse:collapse;width:100%;min-width:550px}td,th{text-align:left;padding:10px;border-bottom:1px solid #e5ebf2;font-size:13px}.scroll{overflow:auto}@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{gap:6px}.card{padding:14px}}
+</style></head><body>
+<header><b>GOUVE TECH AI<small style="display:block;color:#c5ddfa;font-size:10px">SMARTPHONE REPAIR ASSISTANT</small></b><span id="who"></span></header>
 <main>
-<header class="topbar"><div><h1 id="pageTitle">Tableau de bord</h1><p>Votre atelier, mieux organisé.</p></div><div class="user">● Espace technicien</div></header>
-<div class="content">
-<section class="page active" id="home">
-  <div class="welcome"><div><h2>Bienvenue dans GOUVE TECH AI 👋</h2><p>Diagnostiquez, organisez et suivez vos réparations au même endroit.</p><div class="actions" style="margin-top:16px"><button class="btn" onclick="showPage('diagnostic')">Lancer un diagnostic</button><button class="btn secondary" onclick="showPage('repairs')">Nouvelle réparation</button></div></div><div class="spark">⚡</div></div>
-  <div class="grid">
-    <div class="stat"><span>Réparations enregistrées</span><strong id="statRepairs">0</strong><em>Depuis le démarrage</em></div>
-    <div class="stat"><span>En cours</span><strong id="statProgress">0</strong><em>À suivre</em></div>
-    <div class="stat"><span>Terminées</span><strong id="statDone">0</strong><em>Prêtes à livrer</em></div>
-    <div class="stat"><span>Clients</span><strong id="statClients">0</strong><em>Clients enregistrés</em></div>
-  </div>
-  <div class="panel"><div class="panelhead"><h3>Dernières interventions</h3><button class="btn secondary small" onclick="showPage('repairs')">Voir tout</button></div><div id="recentRepairs"></div></div>
-  <div class="notice">Prototype initial : le diagnostic fournit des pistes et une procédure de contrôle. Il ne remplace pas les mesures au multimètre, les documents du fabricant ni la validation du technicien.</div>
+<section id="auth" class="card" style="max-width:480px;margin:35px auto">
+<h2>Bienvenue</h2><p class="muted">Connecte-toi ou crée ton compte réparateur.</p>
+<div class="tabs"><button id="loginTab" class="active">Connexion</button><button id="signupTab">Créer un compte</button></div>
+<form id="authForm" class="grid">
+<div id="nameWrap" class="field full hidden"><label>Nom complet</label><input id="name"></div>
+<div id="shopWrap" class="field full hidden"><label>Nom de l'atelier</label><input id="shop" value="GOUVE TECH"></div>
+<div class="field full"><label>E-mail</label><input id="email" type="email" required></div>
+<div class="field full"><label>Mot de passe (8 caractères minimum)</label><input id="password" type="password" minlength="8" required></div>
+<div class="field full"><button id="submitAuth" class="btn">Se connecter</button></div></form>
+<button id="forgot" class="btn alt" style="margin-top:10px">Mot de passe oublié</button><div id="authMsg"></div>
 </section>
-
-<section class="page" id="diagnostic">
-  <h2 class="sectiontitle">Assistant de diagnostic</h2>
-  <p class="muted">Décris la panne pour obtenir des hypothèses et les contrôles à effectuer.</p>
-  <div class="panel">
-    <form id="diagForm" class="formgrid">
-      <div class="field"><label>Marque</label><select id="dBrand"><option>Samsung</option><option>Apple iPhone</option><option>TECNO</option><option>Infinix</option><option>Xiaomi / Redmi</option><option>itel</option><option>Autre</option></select></div>
-      <div class="field"><label>Modèle exact (si connu)</label><input id="dModel" placeholder="Ex. Galaxy A14, iPhone 11"></div>
-      <div class="field"><label>Type de panne</label><select id="dType"><option value="charge">Ne charge pas / charge mal</option><option value="screen">Écran cassé / affichage absent</option><option value="battery">Batterie se décharge vite</option><option value="sound">Pas de son / micro</option><option value="power">Ne s'allume pas</option><option value="water">Contact avec liquide</option><option value="other">Autre panne</option></select></div>
-      <div class="field"><label>Symptômes observés</label><input id="dSymptoms" placeholder="Ex. charge uniquement quand on bouge le câble"></div>
-      <div class="field full"><label>Tests déjà effectués (facultatif)</label><textarea id="dTests" placeholder="Ex. autre chargeur testé, connecteur inspecté..."></textarea></div>
-      <div class="field full"><button class="btn" type="submit">Analyser la panne</button></div>
-    </form>
-    <div id="diagResult" aria-live="polite"></div>
-  </div>
-</section>
-
-<section class="page" id="repairs">
-  <h2 class="sectiontitle">Gestion des réparations</h2>
-  <div class="panel">
-    <div class="panelhead"><h3>Enregistrer une intervention</h3></div>
-    <form id="repairForm" class="formgrid">
-      <div class="field"><label>Nom du client *</label><input id="rClient" required placeholder="Nom et prénom"></div>
-      <div class="field"><label>Téléphone du client</label><input id="rPhone" placeholder="07 00 00 00 00"></div>
-      <div class="field"><label>Marque</label><select id="rBrand"><option>Samsung</option><option>Apple iPhone</option><option>TECNO</option><option>Infinix</option><option>Xiaomi / Redmi</option><option>itel</option><option>Autre</option></select></div>
-      <div class="field"><label>Modèle</label><input id="rModel" required placeholder="Modèle du téléphone"></div>
-      <div class="field"><label>Panne signalée *</label><input id="rProblem" required placeholder="Ex. remplacement écran"></div>
-      <div class="field"><label>Statut</label><select id="rStatus"><option>En attente</option><option>En cours</option><option>Terminée</option></select></div>
-      <div class="field"><label>Prix estimé (FCFA)</label><input id="rPrice" type="number" min="0" value="0"></div>
-      <div class="field"><label>Date de dépôt</label><input id="rDate" type="date"></div>
-      <div class="field full"><label>Notes techniques</label><textarea id="rNotes" placeholder="État du téléphone, tests, pièces à prévoir..."></textarea></div>
-      <div class="field full"><button class="btn" type="submit">Enregistrer la réparation</button></div>
-    </form>
-  </div>
-  <div class="panel"><div class="panelhead"><h3>Historique des interventions</h3><input class="search" id="repairSearch" placeholder="Rechercher client, modèle..." style="max-width:260px"></div><div id="repairTable"></div></div>
-</section>
-
-<section class="page" id="clients">
-  <h2 class="sectiontitle">Répertoire clients</h2>
-  <div class="panel"><div class="panelhead"><h3>Clients enregistrés</h3><span class="muted" style="font-size:12px">Ajout automatique depuis les réparations</span></div><div id="clientTable"></div></div>
-</section>
-
-<section class="page" id="quote">
-  <h2 class="sectiontitle">Devis rapide</h2>
-  <div class="panel">
-    <p class="muted">Prépare une estimation simple à imprimer ou à enregistrer en PDF depuis ton navigateur.</p>
-    <form id="quoteForm" class="formgrid">
-      <div class="field"><label>Nom de l'atelier</label><input id="qShop" placeholder="GOUVE TECH"></div>
-      <div class="field"><label>Client</label><input id="qClient" placeholder="Nom du client"></div>
-      <div class="field"><label>Appareil</label><input id="qDevice" placeholder="Ex. Samsung Galaxy A14"></div>
-      <div class="field"><label>Réparation</label><input id="qWork" placeholder="Ex. remplacement écran"></div>
-      <div class="field"><label>Pièce (FCFA)</label><input id="qPart" type="number" min="0" value="0"></div>
-      <div class="field"><label>Main-d'œuvre (FCFA)</label><input id="qLabor" type="number" min="0" value="0"></div>
-      <div class="field full"><button class="btn" type="submit">Générer le devis</button></div>
-    </form>
-    <div id="quoteResult"></div>
-  </div>
-</section>
-
-<section class="page" id="about">
-  <h2 class="sectiontitle">À propos de GOUVE TECH AI</h2>
-  <div class="panel">
-    <h3>Diagnostiquer. Réparer. Maîtriser.</h3>
-    <p>GOUVE TECH AI est un assistant de gestion et de diagnostic destiné aux professionnels de la maintenance des smartphones.</p>
-    <p><b>Cette première version est un prototype local.</b> Les données sont enregistrées dans le navigateur de l'appareil. Elles ne sont pas encore synchronisées entre Android et Windows et ne sont pas sauvegardées dans un cloud.</p>
-    <div class="notice">Avant toute réparation, vérifie le diagnostic avec des tests physiques fiables. Ne saisis pas de code de déverrouillage, mot de passe ou donnée personnelle sensible d'un client.</div>
-    <p class="muted" style="font-size:12px">GOUVE TECH AI · Prototype 0.1 · Développé pour évoluer progressivement.</p>
-  </div>
-</section>
-</div>
+<section id="app" class="hidden">
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><h2>Espace atelier</h2><span class="muted">Tes données professionnelles</span></div><button id="logout" class="btn alt">Déconnexion</button></div>
+<div class="stats"><div class="stat">Interventions<b id="total">0</b></div><div class="stat">En cours<b id="active">0</b></div><div class="stat">Terminées<b id="done">0</b></div></div></div>
+<div class="tabs"><button data-tab="list" class="active">Réparations</button><button data-tab="new">Nouvelle réparation</button><button data-tab="clients">Clients</button><button data-tab="profile">Mon atelier</button></div>
+<section id="list" class="card"><h3>Mes interventions</h3><div id="repairs">Chargement…</div></section>
+<section id="new" class="card hidden"><h3>Enregistrer une réparation</h3><form id="repairForm" class="grid">
+<div class="field"><label>Nom du client *</label><input id="client" required></div><div class="field"><label>Téléphone</label><input id="phone"></div>
+<div class="field"><label>Marque</label><select id="brand"><option>Samsung</option><option>Apple iPhone</option><option>TECNO</option><option>Infinix</option><option>Xiaomi / Redmi</option><option>itel</option><option>Autre</option></select></div>
+<div class="field"><label>Modèle *</label><input id="model" required></div><div class="field"><label>Panne *</label><input id="problem" required></div><div class="field"><label>Prix estimé (FCFA)</label><input id="price" type="number" min="0" value="0"></div>
+<div class="field"><label>Statut</label><select id="status"><option>En attente</option><option>En cours</option><option>Terminée</option><option>Livrée</option></select></div><div class="field"><label>Date dépôt</label><input id="date" type="date"></div>
+<div class="field full"><label>Notes techniques</label><textarea id="notes"></textarea></div><div class="field full"><button class="btn">Enregistrer</button></div></form><div id="repairMsg"></div></section>
+<section id="clients" class="card hidden"><h3>Clients</h3><div id="clientList">Chargement…</div></section>
+<section id="profile" class="card hidden"><h3>Profil atelier</h3><form id="profileForm" class="grid"><div class="field"><label>Nom complet</label><input id="pname"></div><div class="field"><label>Atelier</label><input id="pshop"></div><div class="field"><label>Téléphone professionnel</label><input id="pphone"></div><div class="field full"><button class="btn">Enregistrer le profil</button></div></form><div id="profileMsg"></div></section>
+<div id="globalMsg"></div></section>
+<p class="muted" style="text-align:center">GOUVE TECH AI · Prototype connecté 0.2 · Ne conserve jamais les codes de déverrouillage ni les mots de passe des clients.</p>
 </main>
-</div>
-<script>
-const $=id=>document.getElementById(id);
-const read=()=>{try{return JSON.parse(localStorage.getItem('gouve_repairs')||'[]')}catch(e){return[]}};
-const save=data=>localStorage.setItem('gouve_repairs',JSON.stringify(data));
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));const names={home:'Tableau de bord',diagnostic:'Diagnostic IA',repairs:'Réparations',clients:'Clients',quote:'Devis rapide',about:'À propos'};$('pageTitle').textContent=names[id];if(id==='repairs')renderRepairs();if(id==='clients')renderClients();window.scrollTo(0,0)}
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function money(n){return Number(n||0).toLocaleString('fr-FR')+' FCFA'}
-function render(){
- const a=read();$('statRepairs').textContent=a.length;$('statProgress').textContent=a.filter(x=>x.status==='En cours').length;$('statDone').textContent=a.filter(x=>x.status==='Terminée').length;$('statClients').textContent=new Set(a.map(x=>x.phone||x.client.toLowerCase())).size;
- const recent=a.slice(-5).reverse();$('recentRepairs').innerHTML=recent.length?tableHTML(recent):'<div class="empty">Aucune intervention enregistrée pour le moment.</div>';renderRepairs();renderClients()
-}
-function tableHTML(a){return '<div class="tablewrap"><table><thead><tr><th>Client</th><th>Appareil</th><th>Panne</th><th>Statut</th><th>Prix</th></tr></thead><tbody>'+a.map(x=>`<tr><td><b>${esc(x.client)}</b><br><span class="muted">${esc(x.phone)}</span></td><td>${esc(x.brand)} ${esc(x.model)}</td><td>${esc(x.problem)}</td><td><span class="pill ${x.status==='Terminée'?'done':x.status==='En cours'?'progress':'wait'}">${esc(x.status)}</span></td><td>${money(x.price)}</td></tr>`).join('')+'</tbody></table></div>'}
-function renderRepairs(){const q=($('repairSearch')?.value||'').toLowerCase();const a=read().filter(x=>(x.client+' '+x.model+' '+x.problem+' '+x.brand).toLowerCase().includes(q)).reverse();$('repairTable').innerHTML=a.length?'<div class="tablewrap"><table><thead><tr><th>Client</th><th>Appareil</th><th>Panne</th><th>Date</th><th>Statut</th><th>Prix</th><th>Action</th></tr></thead><tbody>'+a.map(x=>`<tr><td>${esc(x.client)}</td><td>${esc(x.brand)} ${esc(x.model)}</td><td>${esc(x.problem)}</td><td>${esc(x.date||'—')}</td><td><select aria-label="Statut" onchange="changeStatus('${x.id}',this.value)"><option ${x.status==='En attente'?'selected':''}>En attente</option><option ${x.status==='En cours'?'selected':''}>En cours</option><option ${x.status==='Terminée'?'selected':''}>Terminée</option></select></td><td>${money(x.price)}</td><td><button class="btn ghost small" onclick="removeRepair('${x.id}')">Supprimer</button></td></tr>`).join('')+'</tbody></table></div>':'<div class="empty">Aucune réparation trouvée.</div>'}
-function renderClients(){const map=new Map();read().forEach(x=>map.set(x.phone||x.client.toLowerCase(),x));const a=[...map.values()];$('clientTable').innerHTML=a.length?'<div class="tablewrap"><table><thead><tr><th>Client</th><th>Téléphone</th><th>Dernier appareil enregistré</th><th>Dernière panne</th></tr></thead><tbody>'+a.map(x=>`<tr><td>${esc(x.client)}</td><td>${esc(x.phone||'—')}</td><td>${esc(x.brand)} ${esc(x.model)}</td><td>${esc(x.problem)}</td></tr>`).join('')+'</tbody></table></div>':'<div class="empty">Les clients apparaîtront ici après l'enregistrement de leur première réparation.</div>'}
-function changeStatus(id,status){const a=read();const x=a.find(v=>v.id===id);if(x){x.status=status;save(a);render()}}
-function removeRepair(id){if(confirm('Supprimer cette intervention ?')){save(read().filter(x=>x.id!==id));render()}}
-$('repairSearch').addEventListener('input',renderRepairs);
-$('repairForm').addEventListener('submit',e=>{e.preventDefault();const a=read();a.push({id:Date.now().toString(36),client:$('rClient').value.trim(),phone:$('rPhone').value.trim(),brand:$('rBrand').value,model:$('rModel').value.trim(),problem:$('rProblem').value.trim(),status:$('rStatus').value,price:Number($('rPrice').value),date:$('rDate').value,notes:$('rNotes').value});save(a);e.target.reset();$('rPrice').value=0;render();alert('Intervention enregistrée sur cet appareil.');});
-const diag={
-charge:{title:'Panne de charge',causes:['Câble ou adaptateur défectueux','Connecteur de charge encrassé, oxydé ou endommagé','Sous-carte ou nappe de charge défectueuse','Défaut du circuit de charge ou de la batterie'],tests:['Essayer un chargeur et un câble dont le fonctionnement est confirmé.','Inspecter le port à la loupe, téléphone éteint. Ne pas introduire d’objet métallique.','Contrôler le connecteur et la sous-carte selon la documentation du modèle.','Mesurer tension et courant avec un testeur USB adapté.']},
-screen:{title:'Panne d’écran / affichage',causes:['Verre ou dalle OLED/LCD endommagé(e)','Nappe d’écran mal connectée ou endommagée','Connecteur d’écran endommagé','Défaut d’alimentation ou de circuit d’affichage'],tests:['Vérifier si le téléphone vibre, sonne ou est détecté par un ordinateur.','Inspecter l’écran et le châssis pour repérer choc ou torsion.','Après mise hors tension et déconnexion de la batterie, inspecter la nappe et le connecteur.','Tester avec un écran compatible connu fonctionnel si la procédure le permet.']},
-battery:{title:'Autonomie / batterie',causes:['Batterie vieillissante ou endommagée','Application ou processus consommant anormalement','Problème de charge ou de connectique','Température élevée ou défaut matériel'],tests:['Consulter les statistiques de batterie et l’état de santé si disponible.','Vérifier température et comportement en veille.','Inspecter la batterie : ne jamais comprimer ou percer une batterie gonflée.','Comparer avec une batterie compatible connue fonctionnelle, selon procédure fabricant.']},
-sound:{title:'Son / microphone',causes:['Grille obstruée ou présence de liquide','Haut-parleur ou microphone défectueux','Nappe ou connecteur endommagé','Réglage, application ou défaut logiciel'],tests:['Vérifier volume, mode silencieux et permissions de microphone.','Tester appel, enregistrement vocal et lecture multimédia.','Inspecter les grilles sans enfoncer d’objet dans les ouvertures.','Contrôler les modules et connecteurs selon le manuel du modèle.']},
-power:{title:'Téléphone qui ne s’allume pas',causes:['Batterie profondément déchargée ou défectueuse','Port ou circuit de charge défaillant','Écran en panne alors que le téléphone démarre','Défaut sur la carte mère'],tests:['Essayer une alimentation et un câble vérifiés, puis laisser charger selon les consignes fabricant.','Vérifier vibration, son, détection USB et consommation avec équipement adapté.','Inspecter les signes de choc ou de liquide.','Éviter toute injection de tension sans connaître les points et limites du modèle.']},
-water:{title:'Contact avec un liquide',causes:['Oxydation des connecteurs ou circuits','Court-circuit potentiel','Corrosion progressive sous les blindages','Batterie ou écran affecté'],tests:['Éteindre immédiatement si cela peut être fait sans risque.','Ne pas charger, chauffer ni tenter de rallumer l’appareil.','Faire inspecter et traiter l’appareil par un technicien qualifié.','Contrôler les indicateurs et zones d’oxydation selon le manuel.']},
-other:{title:'Diagnostic général',causes:['Défaut logiciel ou réglage','Composant ou connecteur défectueux','Dommage consécutif à un choc ou liquide','Panne intermittente nécessitant reproduction'],tests:['Faire préciser le symptôme, les circonstances et sa fréquence.','Reproduire la panne et noter les conditions.','Effectuer une inspection visuelle et les tests de base adaptés.','Consulter la documentation technique du modèle avant démontage.']}
-};
-$('diagForm').addEventListener('submit',e=>{e.preventDefault();const d=diag[$('dType').value];const brand=$('dBrand').value,model=$('dModel').value||'Modèle non précisé',sym=$('dSymptoms').value,tests=$('dTests').value;$('diagResult').innerHTML=`<div class="result"><h4>Rapport préliminaire — ${esc(d.title)}</h4><p><b>Appareil :</b> ${esc(brand)} ${esc(model)}</p>${sym?`<p><b>Symptômes :</b> ${esc(sym)}</p>`:''}<b>Causes possibles à vérifier</b><ul>${d.causes.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul><br><b>Ordre de contrôle conseillé</b><ol>${d.tests.map(x=>'<li>'+esc(x)+'</li>').join('')}</ol>${tests?`<p><b>Tests déjà réalisés :</b> ${esc(tests)}</p>`:''}<div class="notice">Ce résultat est une aide générique, pas un diagnostic confirmé. Les valeurs électriques et procédures dépendent du modèle exact. Vérifie la documentation technique et confirme chaque hypothèse par des mesures.</div><div class="actions" style="margin-top:12px"><button class="btn secondary small" onclick="copyDiag()">Copier le rapport</button><button class="btn small" onclick="showPage('repairs')">Créer une intervention</button></div></div>`;window.lastDiag=$('diagResult').innerText;});
-function copyDiag(){if(navigator.clipboard)navigator.clipboard.writeText(window.lastDiag||'').then(()=>alert('Rapport copié.')).catch(()=>alert('Copie non disponible sur ce navigateur.'));else alert('Copie non disponible sur ce navigateur.')}
-$('quoteForm').addEventListener('submit',e=>{e.preventDefault();const part=Number($('qPart').value),labor=Number($('qLabor').value),total=part+labor;const date=new Date().toLocaleDateString('fr-FR');$('quoteResult').innerHTML=`<div class="result" id="printQuote"><h3>${esc($('qShop').value||'GOUVE TECH')} — DEVIS ESTIMATIF</h3><p>Date : ${date}</p><p>Client : <b>${esc($('qClient').value||'—')}</b></p><p>Appareil : ${esc($('qDevice').value||'—')}</p><p>Intervention : ${esc($('qWork').value||'—')}</p><hr><p>Pièce : ${money(part)}</p><p>Main-d'œuvre : ${money(labor)}</p><h3>Total estimatif : ${money(total)}</h3><p class="muted">Devis indicatif, à confirmer après diagnostic physique.</p></div><button class="btn" style="margin-top:12px" onclick="window.print()">Imprimer / Enregistrer en PDF</button>`;});
-$('rDate').value=new Date().toISOString().slice(0,10);
-render();
-if('serviceWorker' in navigator && location.protocol!=='file:'){navigator.serviceWorker.register('sw.js').catch(()=>{});}
-</script>
-</body>
-</html>
+<script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const db=createClient('https://ubqiyxxryfaufeiaxuzz.supabase.co','sb_publishable__wvBcacsmRyMA4OlwMTQ9g_o-4A0XJy');
+const $=x=>document.getElementById(x);let mode='login',user=null;
+const msg=(id,t,k='')=>$(id).innerHTML=t?'<div class="msg '+k+'">'+esc(t)+'</div>':'';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>Number(n||0).toLocaleString('fr-FR')+' FCFA';
+function setMode(m){mode=m;$('loginTab').classList.toggle('active',m==='login');$('signupTab').classList.toggle('active',m==='signup');$('nameWrap').classList.toggle('hidden',m!=='signup');$('shopWrap').classList.toggle('hidden',m!=='signup');$('submitAuth').textContent=m==='login'?'Se connecter':'Créer mon compte';$('forgot').classList.toggle('hidden',m!=='login');msg('authMsg','')}
+$('loginTab').onclick=()=>setMode('login');$('signupTab').onclick=()=>setMode('signup');
+function showAuth(){$('auth').classList.remove('hidden');$('app').classList.add('hidden');$('who').textContent='';user=null}
+async function showApp(u){user=u;$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('who').textContent=u.email||'';await loadProfile();await loadAll()}
+$('authForm').onsubmit=async e=>{e.preventDefault();$('submitAuth').disabled=true;try{let r;if(mode==='signup'){if(!$('name').value.trim())throw Error('Indique ton nom complet.');r=await db.auth.signUp({email:$('email').value.trim(),password:$('password').value,options:{data:{full_name:$('name').value.trim(),workshop_name:$('shop').value.trim()||'GOUVE TECH'}}});if(r.error)throw r.error;if(r.data.session)await showApp(r.data.user);else msg('authMsg','Compte créé. Confirme ton adresse e-mail puis connecte-toi.','ok')}else{r=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(r.error)throw r.error;await showApp(r.data.user)}}catch(e){msg('authMsg',e.message||'Erreur de connexion.','err')}finally{$('submitAuth').disabled=false}};
+$('forgot').onclick=async()=>{let email=$('email').value.trim();if(!email)return msg('authMsg','Saisis ton e-mail.','err');let{error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.href});msg('authMsg',error?error.message:'Si cette adresse existe, un lien sera envoyé.','ok')};
+$('logout').onclick=async()=>{await db.auth.signOut();showAuth()};
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['list','new','clients','profile'].forEach(x=>$(x).classList.toggle('hidden',x!==b.dataset.tab))});
+async function loadProfile(){let{data,error}=await db.from('profiles').select('full_name,workshop_name,phone').eq('id',user.id).maybeSingle();if(error){msg('globalMsg','Profil : '+error.message,'err');return}$('pname').value=data?.full_name||user.user_metadata?.full_name||'';$('pshop').value=data?.workshop_name||user.user_metadata?.workshop_name||'GOUVE TECH';$('pphone').value=data?.phone||''}
+$('profileForm').onsubmit=async e=>{e.preventDefault();let{error}=await db.from('profiles').upsert({id:user.id,full_name:$('pname').value.trim(),workshop_name:$('pshop').value.trim(),phone:$('pphone').value.trim()},{onConflict:'id'});msg('profileMsg',error?error.message:'Profil enregistré.',error?'err':'ok')};
+async function loadAll(){let{data,error}=await db.from('repairs').select('id,brand,model,problem,status,estimated_price,received_at,customers(full_name,phone)').order('created_at',{ascending:false});if(error){msg('globalMsg','Chargement : '+error.message,'err');return}let a=data||[];$('total').textContent=a.length;$('active').textContent=a.filter(x=>['En attente','En cours'].includes(x.status)).length;$('done').textContent=a.filter(x=>['Terminée','Livrée'].includes(x.status)).length;
+$('repairs').innerHTML=a.length?'<div style="overflow:auto"><table><thead><tr><th>Client</th><th>Téléphone</th><th>Appareil</th><th>Panne</th><th>Statut</th><th>Estimation</th></tr></thead><tbody>'+a.map(x=>'<tr><td>'+esc(x.customers?.full_name||'—')+'</td><td>'+esc(x.customers?.phone||'—')+'</td><td>'+esc(x.brand+' '+x.model)+'</td><td>'+esc(x.problem)+'</td><td>'+esc(x.status)+'</td><td>'+money(x.estimated_price)+'</td></tr>').join('')+'</tbody></table></div>':'Aucune intervention enregistrée.';
+let c=await db.from('customers').select('full_name,phone,created_at').order('created_at',{ascending:false});$('clientList').innerHTML=c.error?'Erreur : '+esc(c.error.message):(c.data?.length?'<div style="overflow:auto"><table><thead><tr><th>Client</th><th>Téléphone</th><th>Ajouté le</th></tr></thead><tbody>'+c.data.map(x=>'<tr><td>'+esc(x.full_name)+'</td><td>'+esc(x.phone||'—')+'</td><td>'+new Date(x.created_at).toLocaleDateString('fr-FR')+'</td></tr>').join('')+'</tbody></table></div>':'Aucun client.')}
+$('repairForm').onsubmit=async e=>{e.preventDefault();msg('repairMsg','Enregistrement…');try{let cid=null,ph=$('phone').value.trim();if(ph){let f=await db.from('customers').select('id').eq('phone',ph).maybeSingle();if(f.error)throw f.error;cid=f.data?.id||null}if(!cid){let c=await db.from('customers').insert({owner_id:user.id,full_name:$('client').value.trim(),phone:ph}).select('id').single();if(c.error)throw c.error;cid=c.data.id}
+let r=await db.from('repairs').insert({owner_id:user.id,customer_id:cid,brand:$('brand').value,model:$('model').value.trim(),problem:$('problem').value.trim(),technical_notes:$('notes').value.trim(),status:$('status').value,estimated_price:Number($('price').value||0),received_at:$('date').value||new Date().toISOString().slice(0,10)});if(r.error)throw r.error;e.target.reset();$('date').value=new Date().toISOString().slice(0,10);msg('repairMsg','Intervention enregistrée.','ok');await loadAll();document.querySelector('[data-tab="list"]').click()}catch(err){msg('repairMsg',err.message||'Erreur enregistrement.','err')}};
+$('date').value=new Date().toISOString().slice(0,10);
+let{data:{session}}=await db.auth.getSession();if(session?.user)await showApp(session.user);else showAuth();
+db.auth.onAuthStateChange((_ev,s)=>{if(s?.user&&!user)showApp(s.user);if(!s&&user)showAuth()});
+</script></body></html>
